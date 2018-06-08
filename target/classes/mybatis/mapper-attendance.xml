@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nantian.dao.AttendanceDao">
+	<!-- <insert id="insertExcel"> insert into attendance (empno,ename,company,day1,day2,day3,day4,day5,day6,day7,day8,day9,day10,day11,day12,day13,day14,day15,day16,day17,day18,day19,day20,day21,day22,day23,day24,day25,day26,day27,day28,day29,day30,day31,应到,实到,迟到,早退,部室,所属部门) 
+		values (#{empno},#{ename},#{company},#{day1},#{day2},#{day3},#{day4},#{day5},#{day6},#{day7},#{day8},#{day9},#{day10},#{day11},#{day12},#{day13},#{day14},#{day15},#{day16},#{day17},#{day18},#{day19},#{day20},#{day21},#{day22},#{day23},#{day24},#{day25},#{day26},#{day27},#{day28},#{day29},#{day30},#{day31},#{yingdao},#{shidao},#{chidao},#{zaotui},#{bushi},#{suoshubumen}); 
+		</insert> -->
+		
+	<insert id="insertYearAndMonth">
+		insert into dateyymm (yymm,empno,ename) values 
+		<foreach collection="attlist" item="attendance" separator=",">
+			(#{yymm},#{attendance.empno},#{attendance.ename})
+		</foreach>
+	</insert>	
+
+	<select id="createDateyymm">
+		${sql}
+	</select>
+
+	<select id="createBaseTable">
+			create table  attendance ${sql};
+	</select>
+
+	<select id="createDataBase">
+		Create Database If Not Exists ${name} Character Set
+		UTF8;
+	</select>
+
+	<select id="useDataBase">
+		use ${name};
+	</select>
+
+
+	<select id="copyTable">
+		create table ${yearAndMonth} like attendance;
+	</select>
+
+	<select id="ifTableExists" resultType="java.lang.Integer">
+		select count(*) from
+		information_schema.TABLES where table_name = #{name} and table_schema='attendance123';
+	</select>
+
+	<select id="getTableRowsNumber" resultType="java.lang.Integer">
+		select count(*) from
+		${name};
+	</select>
+
+	<delete id="deleteTabel">
+		delete from ${name}
+	</delete>
+
+	<insert id="insertExcel">
+		insert into ${tableName}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="att.empno != null">
+				empno,
+			</if>
+			<if test="att.ename != null">
+				ename,
+			</if>
+			<if test="att.company != null">
+				company,
+			</if>
+			<if test="att.day1 != null">
+				day1,
+			</if>
+			<if test="att.day2 != null">
+				day2,
+			</if>
+			<if test="att.day3 != null">
+				day3,
+			</if>
+			<if test="att.day4 != null">
+				day4,
+			</if>
+			<if test="att.day5 != null">
+				day5,
+			</if>
+			<if test="att.day6 != null">
+				day6,
+			</if>
+			<if test="att.day7 != null">
+				day7,
+			</if>
+			<if test="att.day8 != null">
+				day8,
+			</if>
+			<if test="att.day9 != null">
+				day9,
+			</if>
+			<if test="att.day10 != null">
+				day10,
+			</if>
+			<if test="att.day11 != null">
+				day11,
+			</if>
+			<if test="att.day12 != null">
+				day12,
+			</if>
+			<if test="att.day13 != null">
+				day13,
+			</if>
+			<if test="att.day14 != null">
+				day14,
+			</if>
+			<if test="att.day15 != null">
+				day15,
+			</if>
+			<if test="att.day16 != null">
+				day16,
+			</if>
+			<if test="att.day17 != null">
+				day17,
+			</if>
+			<if test="att.day18 != null">
+				day18,
+			</if>
+			<if test="att.day19 != null">
+				day19,
+			</if>
+			<if test="att.day20 != null">
+				day20,
+			</if>
+			<if test="att.day21 != null">
+				day21,
+			</if>
+			<if test="att.day22 != null">
+				day22,
+			</if>
+			<if test="att.day23 != null">
+				day23,
+			</if>
+			<if test="att.day24 != null">
+				day24,
+			</if>
+			<if test="att.day25 != null">
+				day25,
+			</if>
+			<if test="att.day26 != null">
+				day26,
+			</if>
+			<if test="att.day27 != null">
+				day27,
+			</if>
+			<if test="att.day28 != null">
+				day28,
+			</if>
+			<if test="att.day29 != null">
+				day29,
+			</if>
+			<if test="att.day30 != null">
+				day30,
+			</if>
+			<if test="att.day31 != null">
+				day31,
+			</if>
+			<!--test中用的是属性名来判断 -->
+			<if test="att.yingdao != null">
+				应到,
+			</if>
+			<if test="att.shidao != null">
+				实到,
+			</if>
+			<if test="att.chidao != null">
+				迟到,
+			</if>
+			<if test="att.zaotui != null">
+				早退,
+			</if>
+			<if test="att.bushi != null">
+				部室,
+			</if>
+			<if test="att.suoshubumen!= null">
+				所属部门,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="att.empno != null">
+				#{att.empno},
+			</if>
+			<if test="att.ename != null">
+				#{att.ename,jdbcType=VARCHAR},
+			</if>
+			<if test="att.company != null">
+				#{att.company,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day1 != null">
+				#{att.day1,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day2 != null">
+				#{att.day2,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day3 != null">
+				#{att.day3,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day4 != null">
+				#{att.day4,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day5 != null">
+				#{att.day5,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day6 != null">
+				#{att.day6,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day7 != null">
+				#{att.day7,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day8 != null">
+				#{att.day8,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day9 != null">
+				#{att.day9,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day10 != null">
+				#{att.day10,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day11 != null">
+				#{att.day11,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day12 != null">
+				#{att.day12,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day13 != null">
+				#{att.day13,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day14 != null">
+				#{att.day14,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day15 != null">
+				#{att.day15,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day16 != null">
+				#{att.day16,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day17 != null">
+				#{att.day17,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day18 != null">
+				#{att.day18,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day19 != null">
+				#{att.day19,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day20 != null">
+				#{att.day20,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day21 != null">
+				#{att.day21,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day22 != null">
+				#{att.day22,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day23 != null">
+				#{att.day23,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day24 != null">
+				#{att.day24,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day25 != null">
+				#{att.day25,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day26 != null">
+				#{att.day26,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day27 != null">
+				#{att.day27,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day28 != null">
+				#{att.day28,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day29 != null">
+				#{att.day29,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day30 != null">
+				#{att.day30,jdbcType=VARCHAR},
+			</if>
+			<if test="att.day31 != null">
+				#{att.day31,jdbcType=VARCHAR},
+			</if>
+			<if test="att.yingdao != null">
+				#{att.yingdao},
+			</if>
+			<if test="att.shidao != null">
+				#{att.shidao},
+			</if>
+			<if test="att.chidao != null">
+				#{att.chidao},
+			</if>
+			<if test="att.zaotui != null">
+				#{att.zaotui},
+			</if>
+			<if test="att.bushi!= null">
+				#{att.bushi,jdbcType=VARCHAR},
+			</if>
+			<if test="att.suoshubumen != null">
+				#{att.suoshubumen,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+</mapper>
