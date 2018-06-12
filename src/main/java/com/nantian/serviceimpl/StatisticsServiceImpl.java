@@ -163,7 +163,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 		so.setDayszaotui(dayszaotui);
 		so.setJizhongkaifa(jizhongkaifa);
 		so.setShangbanweidaka(shangbanweidaka);
-		so.setTotaltime(totaltime);
+		so.setTotaltimeminutes(totaltime);
 		so.setWeidaka(weidaka);
 		so.setXiabanweidaka(xiabanweidaka);
 		so.setZaotui(zaotui);

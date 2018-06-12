@@ -11,11 +11,33 @@ import java.util.List;
  */
 public class StatisticsObject {
 
-	// 加班时间
-	private long totaltime;
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	// 加班时间(分钟)
+	private float totaltimeminutes;
+	
+	// 加班时间(小时)
+	private float totaltimehours;
 
 	// 用于存储集中开发的天数
 	private int jizhongkaifa;
+
+	public float getTotaltimehours() {
+		return totaltimehours;
+	}
+
+	public void setTotaltimehours(float totaltimehours) {
+		this.totaltimehours = totaltimehours;
+	}
+
 	// 用于存储有哪些天集中开发
 	private List<String> daysjizhongkaifa;
 	// 用于存储未打卡天数
@@ -39,12 +61,12 @@ public class StatisticsObject {
 	// 用于存储有哪些天迟到
 	private List<String> dayschidao;
 
-	public long getTotaltime() {
-		return totaltime;
+	public float getTotaltimeminutes() {
+		return totaltimeminutes;
 	}
 
-	public void setTotaltime(long totaltime) {
-		this.totaltime = totaltime;
+	public void setTotaltimeminutes(float totaltimeminutes) {
+		this.totaltimeminutes = totaltimeminutes;
 	}
 
 	public int getJizhongkaifa() {

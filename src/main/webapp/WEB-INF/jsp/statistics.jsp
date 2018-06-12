@@ -11,14 +11,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	statistics jsp!!!
-
-	<hr>
 	情况统计   
 	<br>
-	<br> ${attendance.ename }
+	<br> ${so.name }
 	<hr>
-    <br>加班时间:${totalOverTimeMinutes }分钟,即${totalOverTimeHours }个小时
+    <br>加班时间:${so.totaltimeminutes }分钟,即${so.totaltimehours }个小时
     <br>
 	<br> 未打卡天数:${so.weidaka } 
 	  			<c:if test="${not empty so.daysweidaka }">
@@ -67,7 +64,7 @@
 	 
 </body>
 <script type="text/javascript">
-			$(function (){
+			/* $(function (){
 				//页面加载函数
 				//ajax,为下拉框加载数据
 				$.post("getEnames.do",function(data){
@@ -97,9 +94,9 @@
 				$(data).each(function(i,json){
 					$("#time").append("<option value="+json+">"+json+"</option>");
 				});
-			});
+			}); 
 			
 		
-	}
+	}*/
 </script>
 </html>

@@ -13,11 +13,19 @@
 		select * from attendance${yymm} where empno=#{empno};
 	</select> 
 
+	<select id="selectAttendancesByTime" resultType="com.nantian.dto.Attendance">
+		select * from attendance${yymm};
+	</select>
+
 	<select id="selectEnames" resultType="com.nantian.dto.Attendance">
 		select DISTINCT(empno),ename from dateyymm;
 	</select>
 	
-	<select id="selectDateyymm" resultType="java.lang.String" > 
+	<select id="selectDateyymmByEmpno" resultType="java.lang.String" > 
 		select yymm from dateyymm where empno=#{empno};
+	</select>
+	
+	<select id="selectDateyymm" resultType="java.lang.String">
+		select DISTINCT(yymm) from dateyymm ;
 	</select>
 </mapper>

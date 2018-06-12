@@ -19,6 +19,7 @@ public interface EmployeeDao {
 	//Attendance selectSingleAttendanceByEmpno(String empno);
 	Attendance selectSingleAttendanceByEmpno(@Param("empno")String empno,@Param("yymm")String yymm);
 
+   
 	/**
 	 * @return
 	 */
@@ -28,5 +29,17 @@ public interface EmployeeDao {
 	 * @param empno
 	 * @return
 	 */
-	List<String> selectDateyymm(String empno);
+	List<String> selectDateyymmByEmpno(String empno);
+
+	/**
+	 * @return
+	 */
+	List<String> selectDateyymm();
+
+
+	/**
+	 * @param yymm
+	 * @return
+	 */
+	List<Attendance> selectAttendancesByTime(@Param("yymm")String yymm);
 }

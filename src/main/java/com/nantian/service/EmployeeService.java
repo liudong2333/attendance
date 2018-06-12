@@ -17,5 +17,16 @@ public interface EmployeeService {
 	 * @param empno
 	 * @return
 	 */
-	List<String> getDateyymm(String empno);
+	List<String> getDateyymmByEmpno(String empno);
+
+	/**
+	 * @return
+	 */
+	List<String> getDateyymm();
+
+	/**
+	 * @param yymm
+	 * @return
+	 */
+	List<Attendance> getAttendancesByTime(String yymm);
 }

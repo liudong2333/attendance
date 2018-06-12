@@ -18,20 +18,19 @@ public class EmloyeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	EmployeeDao employeeDao;
-	
 
-	/*@Override
-	public Attendance getSingleAttendanceByEmpno(String empno) {
-		Attendance attendance = employeeDao.selectSingleAttendanceByEmpno(empno);
-		return attendance;
-	}*/
+	/*
+	 * @Override public Attendance getSingleAttendanceByEmpno(String empno) {
+	 * Attendance attendance = employeeDao.selectSingleAttendanceByEmpno(empno);
+	 * return attendance; }
+	 */
 
 	@Override
-	public Attendance getSingleAttendanceByEmpno(String empno,String yymm) {
-		Attendance attendance = employeeDao.selectSingleAttendanceByEmpno(empno,yymm);
+	public Attendance getSingleAttendanceByEmpno(String empno, String yymm) {
+		Attendance attendance = employeeDao.selectSingleAttendanceByEmpno(empno, yymm);
 		return attendance;
 	}
-	
+
 	/* 
 	 * 
 	 */
@@ -45,9 +44,32 @@ public class EmloyeeServiceImpl implements EmployeeService {
 	 * 
 	 */
 	@Override
-	public List<String> getDateyymm(String empno) {
-		List<String> list_date = employeeDao.selectDateyymm(empno);
+	public List<String> getDateyymmByEmpno(String empno) {
+		List<String> list_date = employeeDao.selectDateyymmByEmpno(empno);
 		return list_date;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.nantian.service.EmployeeService#getDateyymm()
+	 */
+	@Override
+	public List<String> getDateyymm() {
+		List<String> list_date = employeeDao.selectDateyymm();
+		return list_date;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nantian.service.EmployeeService#getAttendancesByTime(java.lang.String)
+	 */
+	@Override
+	public List<Attendance> getAttendancesByTime(String yymm) {
+		List<Attendance> list_atttendances = employeeDao.selectAttendancesByTime(yymm);
+		return list_atttendances;
 	}
 
 }

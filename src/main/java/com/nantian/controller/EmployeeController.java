@@ -3,6 +3,7 @@
  */
 package com.nantian.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,7 @@ public class EmployeeController {
 
 	@Autowired
 	StatisticsService statisticsService;
-	
+
 	@Autowired
 	AttendanceService attendanceService;
 
@@ -41,13 +42,13 @@ public class EmployeeController {
 	@RequestMapping(value = "getEnames")
 	public Object getEnames() {
 		int i = attendanceService.ifTableExists("dateyymm");
-		if(i!=0) {
+		if (i != 0) {
 			List<Attendance> empsInfo = employeeService.getEnames();
 			return empsInfo;
-		}else {
+		} else {
 			return "";
 		}
-		
+
 	}
 
 	// 一个员工的统计信息
@@ -56,24 +57,47 @@ public class EmployeeController {
 		String empno = request.getParameter("empno");
 		String yymm = request.getParameter("time");
 
-		// Attendance attendance = employeeService.getSingleAttendanceByEmpno(empno);
 		Attendance attendance = employeeService.getSingleAttendanceByEmpno(empno, yymm);
 
 		StatisticsObject so = statisticsService.totalStatistics(attendance);
-		Float totalOverTimeHours = Float.valueOf(so.getTotaltime()) / 60;
-		model.addAttribute("totalOverTimeMinutes", so.getTotaltime());
-		model.addAttribute("totalOverTimeHours", totalOverTimeHours);
-		model.addAttribute("attendance", attendance);
+		so.setName(attendance.getEname());
+		so.setTotaltimehours(so.getTotaltimeminutes() / 60f);
 		model.addAttribute("so", so);
 
 		return "statistics";
 	}
 
+	// 根据时间(年月)查出考勤情况
+	@RequestMapping(value = "getAttendancesByTime")
+	public String getAttendancesByTime(Model model, HttpServletRequest request) {
+		String yymm = request.getParameter("time");
+		List<StatisticsObject> list_so = new ArrayList<StatisticsObject>();
+		List<Attendance> list_attendance = employeeService.getAttendancesByTime(yymm);
+
+		for (Attendance attendance : list_attendance) {
+			StatisticsObject so = statisticsService.totalStatistics(attendance);
+			so.setName(attendance.getEname());
+			so.setTotaltimehours(so.getTotaltimeminutes() / 60f);
+			list_so.add(so);
+		}
+
+		model.addAttribute("list_so", list_so);
+		return "allAttendances";
+	}
+
 	// 根据传过来的员工编号查询出其所在的年月信息
 	@ResponseBody
+	@RequestMapping(value = "getDateyymmByEmpno")
+	public Object getDateyymmByEmpno(String empno) {
+		List<String> list_date = employeeService.getDateyymmByEmpno(empno);
+		return list_date;
+	}
+
+	// 按时间查询实验，只查出存在的年月
+	@ResponseBody
 	@RequestMapping(value = "getDateyymm")
-	public Object getDateyymm(String empno) {
-		List<String> list_date = employeeService.getDateyymm(empno);
+	public Object getDateyymm() {
+		List<String> list_date = employeeService.getDateyymm();
 		return list_date;
 	}
 }
