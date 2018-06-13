@@ -76,6 +76,10 @@
 	function submitEmpno(){
 		var empno = $("#empno").val();
 		var time = $("#time").val();
+		if(empno==0){
+			alert("请选择员工");
+			windows.location.href="index.do";
+		}
 		$("#ifrID").attr("src","getSingleAttendanceByEmpno.do?empno="+empno+"&time="+time);
 	}
 	
