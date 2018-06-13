@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+		
 		<table border="1" align="left">
 		<tr>
 		<td>姓名</td>
@@ -36,6 +37,12 @@
 		<td>${so.jizhongkaifa}天</td>
 		</tr>
 		</c:forEach>
+		${yymm }月份，全部人员加班时间总和:${monthTotalMinutes }分钟，即${monthTotalHours }小时	
 		</table>
+		
+			
+	
+		
+		
 </body>
 </html>

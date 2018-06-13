@@ -74,13 +74,22 @@ public class EmployeeController {
 		List<StatisticsObject> list_so = new ArrayList<StatisticsObject>();
 		List<Attendance> list_attendance = employeeService.getAttendancesByTime(yymm);
 
+		float monthTotalMinutes = 0;
+		float monthTotalHours = 0;
+
 		for (Attendance attendance : list_attendance) {
 			StatisticsObject so = statisticsService.totalStatistics(attendance);
 			so.setName(attendance.getEname());
 			so.setTotaltimehours(so.getTotaltimeminutes() / 60f);
 			list_so.add(so);
+			monthTotalMinutes += so.getTotaltimeminutes();
 		}
 
+		monthTotalHours = monthTotalMinutes / 60f;
+
+		model.addAttribute("yymm", yymm);
+		model.addAttribute("monthTotalMinutes",monthTotalMinutes);
+		model.addAttribute("monthTotalHours",monthTotalHours);
 		model.addAttribute("list_so", list_so);
 		return "allAttendances";
 	}
